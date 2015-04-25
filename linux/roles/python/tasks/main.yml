@@ -1,0 +1,27 @@
+---
+- name: Update cache
+  apt: update_cache=yes
+
+- name: Install Python 2.7
+  apt: name={{ item }} state=present
+  with_items:
+    - build-essential
+    - python
+    - python-pip
+    - tmux
+    - screen
+    - python-dev  # required for pyrax
+
+- name: Install ipython
+  pip: name=ipython state=present
+
+- name: Install Pyrax SDK
+  pip: name=pyrax state=present
+  with_items:
+    - pyrax
+
+- name: Add pyrax config file
+  template:
+    src: pyrax.cfg
+    dest: "~{{target_user}}/.pyrax.cfg"
+    owner: "{{target_user}}"

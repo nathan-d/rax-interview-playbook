@@ -1,0 +1,27 @@
+---
+# tasks file for vim
+
+- name: Install vim packages
+  apt:
+    name: "{{item}}"
+  with_items:
+    - vim
+    - git
+    - exuberant-ctags
+
+- name: "Create vim bundle dir"
+  file:
+    path: ~{{target_user}}/.vim/bundle
+    state: directory
+    owner: "{{target_user}}"
+
+- name: "Clone neobundle vim plugin manager"
+  git:
+    repo: "https://github.com/Shougo/neobundle.vim"
+    dest: "~{{target_user}}/.vim/bundle/neobundle.vim"
+
+# - name: "Template Vimrc"
+#   template:
+#     src: vimrc
+#     dest: "~{{target_user}}/.vimrc"
+#     owner: "{{target_user}}"

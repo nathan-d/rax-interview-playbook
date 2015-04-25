@@ -1,0 +1,28 @@
+---
+# - name: Update cache
+#   apt: update_cache=yes cache_valid_time=300
+
+# - name: See if emacs24 already installed
+#   command: dpkg-query -W -f='${Status}' emacs24
+#   register: emacs24
+#   changed_when: False
+#   always_run: True
+
+# - name: Install emacs24-nox using backports
+#   apt: name=emacs24-nox default_release={{ ansible_distribution_release }}-backports
+#   when:
+#     ansible_distribution_release == 'wheezy'
+#     and emacs24.stdout == 'unknown ok not-installed'
+
+# - name: Install emacs24-nox using native distribution
+#   apt: name=emacs24-nox
+#   when:
+#     ansible_distribution_release != 'wheezy'
+#     and emacs24.stdout == 'unknown ok not-installed'
+
+- name: Update cache
+  apt: update_cache=yes
+
+- name: Install Emacs
+  apt: name=emacs24 state=latest
+

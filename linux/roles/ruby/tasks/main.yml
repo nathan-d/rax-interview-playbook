@@ -1,0 +1,23 @@
+---
+- name: Update cache
+  apt: update_cache=yes
+
+- name: Install Ruby 2.1
+  apt: name={{ item }} state=latest
+  with_items:
+    - build-essential
+    - ruby1.9.3
+    - tmux
+    - screen
+    - zlib1g-dev  # required for nokogiri as part of fog
+    # - ruby1.9.3-dev
+
+- name: Install pry
+  gem: name=pry state=present
+
+- name: Install iruby
+  gem: name=iruby state=present
+
+- name: Install Fog SDK
+  gem: name=fog state=present
+

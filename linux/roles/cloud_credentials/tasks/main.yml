@@ -1,0 +1,17 @@
+- name: Add cloud account credentials
+  template:
+    src: rackspace_credentials
+    dest: "~{{ target_user }}/.rackspace_credentials"
+    owner: "{{target_user}}"
+
+- name: Add env cloud credentials
+  lineinfile:
+    dest: "~{{ target_user }}/.profile"
+    line: "{{ item }}"
+  with_items:
+    - "CLOUD_ID_TYPE=rackspace"
+    - "OS_USERNAME={{ cloud_login }}"
+    - "OS_AUTH_TOKEN={{ cloud_api_key }}"
+    - "OS_TENANT_ID={{ cloud_tenant_id }}"
+    - "OS_AUTH_URL={{ cloud_auth_url }}"
+    - "OS_PUBKEY={{ cloud_pub_key }}Z"

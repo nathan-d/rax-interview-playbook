@@ -1,0 +1,9 @@
+---
+target_user: interview
+
+cloud_login: interview
+cloud_api_key:
+cloud_region: LON
+cloud_tenant_id:
+cloud_auth_url: https://identity.api.rackspacecloud.com/v2.0/
+cloud_public_key: /Users/nath7523/.ssh/id_rsa.pub

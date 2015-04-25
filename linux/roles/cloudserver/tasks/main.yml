@@ -1,0 +1,27 @@
+- name: Build a Cloud Server
+  local_action:
+    module: rax
+    credentials: rackspace_cloud_credentials
+    networks: ['public', 'private']
+    name: 'test-build'
+    flavor: 'performance1-4'
+    image: 'bb02b1a3-bc77-4d17-ab5b-421d89850fca'
+    files:
+      /root/.ssh/authorized_keys: ~/.ssh/id_rsa.pub
+    wait: yes
+    wait_timeout: 3500
+    state: present
+  register: rax
+
+# - debug: var=rax
+
+- name: Add the created instances (by public IP) to the group 'web'
+  local_action:
+      module: add_host
+      hostname: "{{ rax.success[0].rax_human_id }}"
+      ansible_ssh_host: "{{ rax.success[0].rax_accessipv4 }}"
+      groupname: rax-cloudserver
+  when: rax.action == 'create'
+
+# Wait for 20 seconds to ensure the cloud server is ready
+- wait_for: port=22 delay=20

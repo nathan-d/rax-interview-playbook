@@ -1,0 +1,9 @@
+---
+- name: Update cache
+  apt: update_cache=yes
+
+- name: Add sublime add-apt-repository
+  apt_repository: repo='ppa:webupd8team/sublime-text-3'
+
+- name: Install sublime text 3
+  apt: name='sublime-text-installer' state=latest
