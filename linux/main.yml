@@ -36,6 +36,11 @@
     - ruby
 
 - name: Install X Windows
-  hosts: all
+  hosts: rax-cloudserver
   roles:
     - xfce
+
+- name: Build interview content
+  hosts: rax-cloudserver
+  roles:
+    - interview_stages

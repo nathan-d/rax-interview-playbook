@@ -32,3 +32,7 @@ To perform a generic build without interview content run the following:
     ansible-playbook -i inventory main.yml -u root
 
 ### Building for interviews
+Individual interview stages can be passed as Ansible command line params.
+
+To build for a specific stage set the stage value as an extra vars option.
+    ansible-playbook -i inventory main.yml -u root --extra-vars "server_name=interview-env stage=4"
