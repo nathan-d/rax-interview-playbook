@@ -19,3 +19,9 @@
   - x2goclient
   - x2goserver-xsession
   - x2golxdebindings
+
+- name: Set SSH to use port 443 for x2go
+  replace: dest=/etc/ssh/sshd_config regexp='^Port 22$' replace='Port 443'
+
+- name: Restart ssh service
+  service: name=ssh state=restarted
