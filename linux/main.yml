@@ -4,18 +4,10 @@
   roles:
     - cloudserver
 
-- name: Configure interview user
+- name: Add interview user
   hosts: rax-cloudserver
-  tasks:
-  - user:
-      name: "{{target_user}}"
-      password: $6$JUol7TVO$jj/1oh8Qh92eybn/PE//U77AxU4GjPSXW7gUpEDF3oGbJGhbLjMy/V5VZvE83fy946yMmAoDjGZWVDIB9Ygl2.
-      state: present
-      shell: /bin/bash
-  - file:
-      path: "~{{target_user}}/.ssh"
-      state: directory
-      owner: "{{target_user}}"
+  roles:
+    - interview_user
 
 - name: Add cloud credentials
   hosts: rax-cloudserver
@@ -38,7 +30,7 @@
 - name: Install X Windows
   hosts: rax-cloudserver
   roles:
-    - xfce
+    - x_desktop
 
 - name: Build interview content
   hosts: rax-cloudserver
